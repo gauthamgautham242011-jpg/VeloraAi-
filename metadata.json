@@ -1,0 +1,6 @@
+{
+  "name": "Velora-Gpt-6",
+  "description": "A highly immersive, full-stack conversational AI powered by Gemini 3.5, featuring dynamic chat sessions, search grounding, adaptable assistant roles, and a premium celestial visual interface.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
