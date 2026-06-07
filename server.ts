@@ -314,7 +314,7 @@ async function generateImageWithFallback(promptText: string, aspectRatio = "1:1"
       throw new Error("No image data returned from generator.");
     } catch (err: any) {
       const errorMsg = err?.message || String(err);
-      console.error(`[Image Fallback Engine] Gemini failed, rate-limited, or timed out: ${errorMsg}. Emitting premium Offline SVG instead.`);
+      console.warn(`[Image Fallback Engine] Gemini failed, rate-limited, or timed out: ${errorMsg}. Emitting premium Offline SVG instead.`);
       const svgContent = getBeautifulSvg(normPrompt);
       const base64Image = Buffer.from(svgContent).toString("base64");
       const result: ImageResult = {
@@ -545,7 +545,7 @@ app.post("/generate-image", async (req, res) => {
           return res.json({ image: result.data[0].url });
         }
       } catch (err: any) {
-        console.error("OpenAI Image generation failed, trying Gemini fallback:", err?.message || err);
+        console.warn("OpenAI Image generation failed, trying Gemini fallback:", err?.message || err);
       }
     }
 
@@ -587,7 +587,7 @@ app.post("/api/generate-image", async (req, res) => {
           return res.json({ image: result.data[0].url });
         }
       } catch (err: any) {
-        console.error("OpenAI Image generation on /api/... failed, trying Gemini fallback:", err?.message || err);
+        console.warn("OpenAI Image generation on /api/... failed, trying Gemini fallback:", err?.message || err);
       }
     }
 
@@ -644,7 +644,7 @@ app.post("/api/chat", async (req, res) => {
           groundingMetadata: null
         });
       } catch (imgErr: any) {
-        console.error("Image generation failed inside chat:", imgErr);
+        console.warn("Image generation failed inside chat:", imgErr);
         // Fall back gracefully to standard textual notification with instructions
         return res.json({
           text: `### 🎨 Cosmic Canvas Offline\n\nI tried to generate **"${imagePrompt}"**, but could not complete it. Ensure your billing is active or check your API configuration.\n\n_System Error Details: ${imgErr.message}_`,
